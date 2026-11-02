@@ -23,10 +23,11 @@ jobs:
         with:
           gradle-version: '8.7'
 
-      - name: Instalar SDK Android
-        run: |
-          yes | sdkmanager --licenses > /dev/null 2>&1 || true
-          sdkmanager "platforms;android-34" "build-tools;34.0.0" > /dev/null
+      - name: Configurar SDK Android
+        uses: android-actions/setup-android@v3
+
+      - name: Instalar plataforma Android
+        run: sdkmanager "platforms;android-34" "build-tools;34.0.0"
 
       - name: Compilar APK
         run: gradle assembleDebug --no-daemon --stacktrace
